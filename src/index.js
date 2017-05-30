@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import {
   BrowserRouter as Router,
   Route,
-  hashHistory,
   Switch
 } from 'react-router-dom'
 
@@ -20,11 +19,36 @@ class Root extends React.Component {
     this.state = {
       schools
     }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleChange(e) {
+    this.setState({
+      value: e.target.value
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const input = e.target.querySelector('input')
+    const value = input.value
+    const schoolArray = Object.keys(this.state.schools).map(key => this.state.schools[key])
+    const school = schoolArray.find(s => s.name === value)
+    const schoolReview = {}
+
+    schoolReview.reviewText = this.state.value
+    school.reviews.push(schoolReview)
+
+    this.setState({
+      schools
+    })
   }
 
   render () {
     return (
-      <Router history={hashHistory}>
+      <Router>
         <App>
           <Switch>
             <Route exact path='/' render={props => (
@@ -37,7 +61,7 @@ class Root extends React.Component {
 
               if (school) {
                 return (
-                  <SchoolPage school={school} />
+                  <SchoolPage school={school} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
                 )
               } else {
                 return (
