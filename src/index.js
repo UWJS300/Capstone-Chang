@@ -24,14 +24,14 @@ class Root extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange(e) {
+  handleChange (e) {
     this.setState({
       value: e.target.value
     })
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit (e) {
+    e.preventDefault()
     const input = e.target.querySelector('input')
     const value = input.value
     const schoolArray = Object.keys(this.state.schools).map(key => this.state.schools[key])
