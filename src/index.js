@@ -11,6 +11,7 @@ import schools from './data/schools'
 import App from './components/App'
 import SchoolList from './components/SchoolList'
 import SchoolPage from './components/SchoolPage'
+import AdminPage from './components/AdminPage'
 import NotFound from './components/NotFound'
 
 class Root extends React.Component {
@@ -54,6 +55,11 @@ class Root extends React.Component {
             <Route exact path='/' render={props => (
               <SchoolList schools={this.state.schools} />
             )} />
+
+            <Route exact path='/admin' render={props => (
+              <AdminPage schools={this.state.schools} />
+            )} />
+
             <Route path='/:school' render={props => {
               const schoolName = props.match.params.school
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
@@ -70,6 +76,25 @@ class Root extends React.Component {
               }
 
             }} />
+
+            <Route path='admin/:school' render={props => {
+              const schoolName = props.match.params.school
+              const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
+              const school = schools.find(s => s.name === schoolName)
+
+              if (school) {
+                return (
+                  <AdminPage school={school} />
+                )
+              } else {
+                return (
+                  <Route path='*' status={404} component={NotFound} />
+                )
+              }
+
+            }} />
+
+
           </Switch>
         </App>
       </Router>
