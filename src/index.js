@@ -13,15 +13,34 @@ import SchoolList from './components/SchoolList'
 import SchoolPage from './components/SchoolPage'
 import NotFound from './components/NotFound'
 
+import base from './base'
+
 class Root extends React.Component {
   constructor () {
     super()
     this.state = {
-      schools
+      schools: {}
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  componentWillMount () {
+    // runs on init before app is rendered
+    this.baseRef = base.syncState('schools', {
+      context: this,
+      state: 'schools'
+    })
+  }
+
+  componentWillUnmount () {
+    // clean up
+    base.removeBinding(this.baseRef)
+  }
+
+  componentWillUpdate () {
+    // runs on state update
   }
 
   handleChange (e) {
