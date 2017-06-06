@@ -19,6 +19,13 @@ class SchoolPage extends React.Component {
           <li>{school.zip}</li>
           <li>{school.country}</li>
         </ul>
+
+
+
+
+
+
+
         <Link to={`/${school.name}/reviews`}>Submit Review</Link>
       </div>
     )

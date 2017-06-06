@@ -85,10 +85,19 @@ class Root extends React.Component {
 
   addSchoolReview (key, review, school) {
     const schools = Object.assign({}, this.state.schools)
-    school.reviews = []
-    school.reviews.push(review)
-
-    schools[key] = school
+    const immediatelyAvailRef = base.push(`schools/${key}/reviews`, {
+      data: review,
+      then(err) {
+        if(!err) {
+          // show success alert message diable submit button
+          console.log('Review saved')
+        } else {
+          // show fail alert message
+          console.log('Review could not be saved')
+        }
+      }
+    })
+    const generatedKey = immediatelyAvailRef.key
 
     this.setState({
       schools
