@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import './SchoolPage.css'
 
@@ -18,6 +19,7 @@ class SchoolPage extends React.Component {
           <li>{school.zip}</li>
           <li>{school.country}</li>
         </ul>
+        <Link to={`/${school.name}/reviews`}>Submit Review</Link>
       </div>
     )
   }

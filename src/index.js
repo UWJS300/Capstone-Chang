@@ -13,6 +13,7 @@ import SchoolList from './components/SchoolList'
 import SchoolPage from './components/SchoolPage'
 import AdminPage from './components/AdminPage'
 import AdminSchoolPage from './components/AdminSchoolPage'
+import SchoolReviewPage from './components/SchoolReviewPage'
 import NotFound from './components/NotFound'
 
 import base from './base'
@@ -28,6 +29,7 @@ class Root extends React.Component {
     this.updateSchool = this.updateSchool.bind(this)
     this.addSchool = this.addSchool.bind(this)
     this.removeSchool = this.removeSchool.bind(this)
+    this.addSchoolReview = this.addSchoolReview.bind(this)
   }
 
   componentWillMount () {
@@ -81,6 +83,18 @@ class Root extends React.Component {
     })
   }
 
+  addSchoolReview (key, review, school) {
+    const schools = Object.assign({}, this.state.schools)
+    school.reviews = []
+    school.reviews.push(review)
+
+    schools[key] = school
+
+    this.setState({
+      schools
+    })
+  }
+
   render () {
     return (
       <Router>
@@ -105,7 +119,8 @@ class Root extends React.Component {
 
               if (school) {
                 return (
-                  <AdminSchoolPage school={school} schoolKey={schoolKey}
+                  <AdminSchoolPage school={school}
+                    schoolKey={schoolKey}
                     updateSchool={this.updateSchool}
                   />
                 )
@@ -115,7 +130,7 @@ class Root extends React.Component {
                 )
               }
             }} />
-            <Route path='/:school' render={props => {
+            <Route exact path='/:school' render={props => {
               const schoolName = props.match.params.school
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
               const school = schools.find(s => s.name === schoolName)
@@ -123,6 +138,28 @@ class Root extends React.Component {
               if (school) {
                 return (
                   <SchoolPage school={school} />
+                )
+              } else {
+                return (
+                  <Route path='*' status={404} component={NotFound} />
+                )
+              }
+
+            }} />
+
+            <Route exact path='/:school/reviews' render={props => {
+              const schoolName = props.match.params.school
+              const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
+              const school = schools.find(s => s.name === schoolName)
+
+              const schoolKey = Object.keys(this.state.schools).map(key => Object.assign({}, this.state.schools[key], { key })).find(item => item.name === schoolName).key
+
+              if (school) {
+                return (
+                  <SchoolReviewPage school={school}
+                    schoolKey={schoolKey}
+                    addSchoolReview={this.addSchoolReview}
+                  />
                 )
               } else {
                 return (
