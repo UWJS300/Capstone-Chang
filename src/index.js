@@ -14,6 +14,7 @@ import SchoolPage from './components/SchoolPage'
 import AdminPage from './components/AdminPage'
 import AdminSchoolPage from './components/AdminSchoolPage'
 import SchoolReviewPage from './components/SchoolReviewPage'
+
 import NotFound from './components/NotFound'
 
 import base from './base'
@@ -144,6 +145,8 @@ class Root extends React.Component {
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
               const school = schools.find(s => s.name === schoolName)
 
+              const schoolKey = Object.keys(this.state.schools).map(key => Object.assign({}, this.state.schools[key], { key })).find(item => item.name === schoolName).key
+
               if (school) {
                 return (
                   <SchoolPage school={school} />
@@ -153,7 +156,6 @@ class Root extends React.Component {
                   <Route path='*' status={404} component={NotFound} />
                 )
               }
-
             }} />
 
             <Route exact path='/:school/reviews' render={props => {
