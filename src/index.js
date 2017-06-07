@@ -11,9 +11,13 @@ import schools from './data/schools'
 import App from './components/App'
 import SchoolList from './components/SchoolList'
 import SchoolPage from './components/SchoolPage'
+import AdminPage from './components/AdminPage'
+import AdminSchoolPage from './components/AdminSchoolPage'
 import NotFound from './components/NotFound'
 
 import base from './base'
+
+import { generateKey } from './helpers'
 
 class Root extends React.Component {
   constructor () {
@@ -21,9 +25,9 @@ class Root extends React.Component {
     this.state = {
       schools: {}
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.updateSchool = this.updateSchool.bind(this)
+    this.addSchool = this.addSchool.bind(this)
+    this.removeSchool = this.removeSchool.bind(this)
   }
 
   componentWillMount () {
@@ -43,22 +47,34 @@ class Root extends React.Component {
     // runs on state update
   }
 
-  handleChange (e) {
+  removeSchool (key) {
+    // clone current school state
+    const schools = Object.assign({}, this.state.schools)
+
+    // remove a school from schools use null instead of delete for firebase
+    schools[key] = null
+
+    // update state
     this.setState({
-      value: e.target.value
+      schools
     })
   }
 
-  handleSubmit (e) {
-    e.preventDefault()
-    const input = e.target.querySelector('input')
-    const value = input.value
-    const schoolArray = Object.keys(this.state.schools).map(key => this.state.schools[key])
-    const school = schoolArray.find(s => s.name === value)
-    const schoolReview = {}
+  updateSchool (key, school) {
+    const schools = Object.assign({}, this.state.schools)
 
-    schoolReview.reviewText = this.state.value
-    school.reviews.push(schoolReview)
+    schools[key] = school
+
+    this.setState({
+      schools
+    })
+  }
+
+  addSchool (school) {
+    const key = generateKey()
+    const schools = Object.assign({}, this.state.schools)
+
+    schools[key] = school
 
     this.setState({
       schools
@@ -73,6 +89,32 @@ class Root extends React.Component {
             <Route exact path='/' render={props => (
               <SchoolList schools={this.state.schools} />
             )} />
+            <Route exact path='/admin' render={props => (
+              <AdminPage schools={this.state.schools}
+                addSchool={this.addSchool}
+                removeSchool={this.removeSchool}
+                updateSchool={this.updateSchool}
+                />
+            )} />
+            <Route path='/admin/:school' render={props => {
+              const schoolName = props.match.params.school
+              const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
+              const school = schools.find(s => s.name === schoolName)
+
+              const schoolKey = Object.keys(this.state.schools).map(key => Object.assign({}, this.state.schools[key], { key })).find(item => item.name === schoolName).key
+
+              if (school) {
+                return (
+                  <AdminSchoolPage school={school} schoolKey={schoolKey}
+                    updateSchool={this.updateSchool}
+                  />
+                )
+              } else {
+                return (
+                  <Route path='*' status={404} component={NotFound} />
+                )
+              }
+            }} />
             <Route path='/:school' render={props => {
               const schoolName = props.match.params.school
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
@@ -80,7 +122,7 @@ class Root extends React.Component {
 
               if (school) {
                 return (
-                  <SchoolPage school={school} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
+                  <SchoolPage school={school} />
                 )
               } else {
                 return (
@@ -89,6 +131,7 @@ class Root extends React.Component {
               }
 
             }} />
+
           </Switch>
         </App>
       </Router>
