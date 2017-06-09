@@ -2,10 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import './AdminSchoolPage.css'
+import TextField from 'material-ui/TextField'
+import SelectField from 'material-ui/SelectField'
+import MenuItem from 'material-ui/MenuItem'
+import { Row, Col } from 'react-flexbox-grid/lib/index'
+import Divider from 'material-ui/Divider'
 
 class AdminSchoolPage extends React.Component {
   constructor () {
     super()
+    this.state = {
+      value: 'AL'
+    }
 
     this.handleChange = this.handleChange.bind(this)
   }
@@ -26,19 +34,70 @@ class AdminSchoolPage extends React.Component {
     const { school } = this.props
 
     return (
-      <div>
-        <h2>{school.name}</h2>
-        <hr />
-        <ul>
-          <li><input type='text' name='website' placeholder='Website' value={school.website} onChange={(e) => this.handleChange(e)} /></li>
-          <li><input type='text' name='addressLine1' placeholder='School address' value={school.addressLine1} onChange={(e) => this.handleChange(e)} /></li>
-          <li><input type='text' name='addressLine2' placeholder='School address' value={school.addressLine2} onChange={(e) => this.handleChange(e)} /></li>
-          <li><input type='text' name='city' placeholder='City' value={school.city} onChange={(e) => this.handleChange(e)} /></li>
-          <li><input type='text' name='state' placeholder='State' value={school.state} onChange={(e) => this.handleChange(e)} /></li>
-          <li><input type='text' name='country' placeholder='Country' value={school.country} onChange={(e) => this.handleChange(e)} /></li>
-          <li><input type='text' name='zip' placeholder='Zip' value={school.zip} onChange={(e) => this.handleChange(e)} /></li>
-        </ul>
-      </div>
+      <Row>
+        <Col xs={12}>
+          <Row center='xs'>
+            <Col xs={10}>
+              <h2>{school.name}</h2>
+              <Divider />
+              <ul>
+                <li>
+                  <TextField
+                    type='text'
+                    name='website'
+                    hintText='Website'
+                    floatingLabelText='Website'
+                    value={school.website}
+                    onChange={(e) => this.handleChange(e)} />
+                </li>
+                <li>
+                  <TextField
+                    type='text'
+                    name='addressLine1'
+                    hintText='School address'
+                    floatingLabelText='School address'
+                    value={school.addressLine1} onChange={(e) => this.handleChange(e)} />
+                </li>
+                <li>
+                  <TextField
+                    type='text'
+                    name='addressLine2'
+                    hintText='School address'
+                    floatingLabelText='School address'
+                    value={school.addressLine2}
+                    onChange={(e) => this.handleChange(e)} />
+                </li>
+                <li>
+                  <TextField type='text'
+                    name='city'
+                    hintText='City'
+                    floatingLabelText='City'
+                    value={school.city}
+                    onChange={(e) => this.handleChange(e)} />
+                </li>
+                <li>
+                  <TextField
+                    hintText='State'
+                    floatingLabelText='State'
+                    name='state'
+                    value={school.state}
+                    onChange={(e) => this.handleChange(e)}>
+                  </TextField>
+                </li>
+                <li>
+                  <TextField
+                    type='text'
+                    name='zip'
+                    hintText='Zip'
+                    floatingLabelText='Zip'
+                    value={school.zip}
+                    onChange={(e) => this.handleChange(e)} />
+                </li>
+              </ul>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     )
   }
 }

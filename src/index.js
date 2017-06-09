@@ -6,8 +6,6 @@ import {
   Switch
 } from 'react-router-dom'
 
-import schools from './data/schools'
-
 import App from './components/App'
 import SchoolList from './components/SchoolList'
 import SchoolPage from './components/SchoolPage'
@@ -20,6 +18,9 @@ import NotFound from './components/NotFound'
 import base from './base'
 
 import { generateKey } from './helpers'
+
+import injectTapEventPlugin from 'react-tap-event-plugin';
+  injectTapEventPlugin()
 
 class Root extends React.Component {
   constructor () {
