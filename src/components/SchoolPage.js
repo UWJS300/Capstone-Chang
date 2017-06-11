@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import './SchoolPage.css'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Row, Col } from 'react-flexbox-grid/lib/index'
-import Divider from 'material-ui/Divider'
+
+import { Rating } from 'material-ui-rating'
 
 class SchoolPage extends React.Component {
   render () {
@@ -35,6 +36,12 @@ class SchoolPage extends React.Component {
               return reviews[key] }).map((review, index) => {
                 return (
                   <ul className='review-text' key={index}>
+                    <li>
+                      <Rating
+                        value={review.ratingValue}
+                        max={5}
+                        readOnly={true} />
+                    </li>
                     <li>{review.reviewText}</li>
                     <li className='author'>{review.name}</li>
                   </ul>

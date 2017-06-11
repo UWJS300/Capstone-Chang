@@ -1,11 +1,11 @@
 .review-text li {
   text-align: left;
-  border-bottom: 1px solid #888;
   line-height: 160%;
 }
 
 li.author {
   text-align:right;
+  border-top: 1px solid #888;
   font-size: 0.85rem;
 }
 

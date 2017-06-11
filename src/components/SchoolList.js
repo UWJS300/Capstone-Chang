@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 
 import './SchoolList.css'
 import { Row, Col } from 'react-flexbox-grid/lib/index'
-import Divider from 'material-ui/Divider'
 
 class SchoolList extends React.Component {
   render () {

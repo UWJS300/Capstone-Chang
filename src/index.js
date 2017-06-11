@@ -108,6 +108,12 @@ class Root extends React.Component {
     })
   }
 
+  handleStateChange (state, value, callback = () => {}) {
+    this.setState({ [state]: value }, () => {
+      callback()
+    })
+  }
+
   render () {
     return (
       <Router>
