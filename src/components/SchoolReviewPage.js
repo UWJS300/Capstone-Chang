@@ -10,9 +10,12 @@ import { Row, Col } from 'react-flexbox-grid/lib/index'
 import Divider from 'material-ui/Divider'
 import Dialog from 'material-ui/Dialog'
 
+import { Rating } from 'material-ui-rating'
+
 class SchoolReviewPage extends React.Component {
   state = {
-    open: false
+    open: false,
+    rating: 0
   }
 
   handleOpen = () => {
@@ -25,6 +28,10 @@ class SchoolReviewPage extends React.Component {
     this.setState({
       open: false
     })
+  }
+
+  handleRating (value) {
+    this.setState({ rating: value })
   }
 
   render () {
@@ -46,9 +53,10 @@ class SchoolReviewPage extends React.Component {
         e.preventDefault()
         const key = this.props.schoolKey
         const name = e.target.querySelector('[name=name').value
+        const ratingValue = this.state.rating
         const reviewText = e.target.querySelector('[name=reviewText]').value
 
-        const review = { name, reviewText }
+        const review = { name, ratingValue, reviewText }
 
         this.props.addSchoolReview(review, school)
       }}>
@@ -58,7 +66,11 @@ class SchoolReviewPage extends React.Component {
           hintText='Name'
           floatingLabelText='Name'
           required />
-        <br />
+        <Rating
+          value={this.state.rating}
+          max={5}
+          onChange={(value) => this.handleRating(value)}
+          required />
         <TextField
           name='reviewText'
           hintText='Type review here...'
