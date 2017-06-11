@@ -1,16 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import './SchoolReviewPage.css'
 import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import { Row, Col } from 'react-flexbox-grid/lib/index'
 import Divider from 'material-ui/Divider'
+import Dialog from 'material-ui/Dialog'
 
 class SchoolReviewPage extends React.Component {
+  state = {
+    open: false
+  }
+
+  handleOpen = () => {
+    this.setState({
+      open: true
+    })
+  }
+
+  handleClose = () => {
+    this.setState({
+      open: false
+    })
+  }
 
   render () {
     const { school } = this.props
+
+    const actions = [
+      <Link to={`/${school.name}`}>
+      <FlatButton
+        label='Done'
+        primary={true}
+        disabled={false}
+        onTouchTap={this.handleClose}
+      />
+      </Link>
+    ]
 
     const AddSchoolReviewForm = (
       <form onSubmit={(e) => {
@@ -45,7 +74,8 @@ class SchoolReviewPage extends React.Component {
           type='submit'
           backgroundColor='#009CBA'
           labelColor='#FFFFFF'
-          label='Submit Review'/>
+          label='Submit Review'
+          onTouchTap={this.handleOpen} />
       </form>
     )
 
@@ -57,6 +87,14 @@ class SchoolReviewPage extends React.Component {
             <h2>{school.name}</h2>
             <Divider />
             {AddSchoolReviewForm}
+            <Dialog
+              title='Success'
+              actions={actions}
+              modal={true}
+              open={this.state.open}
+            >
+            Your review has been successfully submitted.
+            </Dialog>
             </Col>
           </Row>
         </Col>
