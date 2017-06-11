@@ -2,6 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import './SchoolReviewPage.css'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+import { Row, Col } from 'react-flexbox-grid/lib/index'
+import Divider from 'material-ui/Divider'
 
 class SchoolReviewPage extends React.Component {
 
@@ -19,19 +23,44 @@ class SchoolReviewPage extends React.Component {
 
         this.props.addSchoolReview(key, review, school)
       }}>
-        <ul>
-          <li><input type='text' name='name' placeholder='Name' /></li>
-          <li><textarea name='reviewText' placeholder='School review' /></li>
-          <li><button type='submit'>Submit Review</button></li>
-        </ul>
+        <TextField
+          type='text'
+          name='name'
+          hintText='Name'
+          floatingLabelText='Name'
+          required />
+        <br />
+        <TextField
+          name='reviewText'
+          hintText='Type review here...'
+          multiLine='true'
+          rows='10'
+          style={{
+            width: 600
+          }}
+          type='text'
+          required />
+        <br />
+        <RaisedButton
+          type='submit'
+          backgroundColor='#009CBA'
+          labelColor='white'
+          label='Submit Review'/>
       </form>
     )
 
     return (
-      <div>
-        <h2>{school.name} Review Page</h2>
-        {AddSchoolReviewForm}
-      </div>
+      <Row>
+        <Col xs={12}>
+          <Row center='xs'>
+            <Col xs={10}>
+            <h2>{school.name}</h2>
+            <Divider />
+            {AddSchoolReviewForm}
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     )
   }
 }
