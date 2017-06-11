@@ -20,14 +20,14 @@ class SchoolPage extends React.Component {
             <h2>{school.name}</h2>
             <ul>
               <li>{school.addressLine1} {school.addressLine2}</li>
-              <li>{school.city}, {school.state} {school.zip}</li>
+              <li>{school.city} {school.state} {school.zip}</li>
               <li>{school.website}</li>
             </ul>
             <Link to={`/${school.name}/reviews`}>
             <RaisedButton
               type='submit'
               backgroundColor='#009CBA'
-              labelColor='white'
+              labelColor='#FFFFFF'
               label='Write Review'/>
             </Link>
 

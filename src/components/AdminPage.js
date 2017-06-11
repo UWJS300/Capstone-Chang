@@ -59,7 +59,7 @@ class AdminPage extends React.Component {
         <RaisedButton
           type='submit'
           backgroundColor='#009CBA'
-          labelColor='white'
+          labelColor='#FFFFFF'
           label='Add' />
       </form>
     )
@@ -80,13 +80,11 @@ class AdminPage extends React.Component {
                     <Link to={`/admin/${school.name}`}>{school.name}</Link>
                     <IconButton tooltip='Edit'>
                       <EditorModeEdit
-                        iconClassName='material-icons'
                         onClick={() => this.handleClick(key)} />
                     </IconButton>
                     <IconButton tooltip='Delete'>
                       <ActionDeleteForever
                         color={'a40000'}
-                        iconClassName='material-icons'
                         onClick={() => this.props.removeSchool(key)} />
                     </IconButton>
                   </li>

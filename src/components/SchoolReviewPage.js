@@ -21,7 +21,7 @@ class SchoolReviewPage extends React.Component {
 
         const review = { name, reviewText }
 
-        this.props.addSchoolReview(key, review, school)
+        this.props.addSchoolReview(review, school)
       }}>
         <TextField
           type='text'
@@ -33,8 +33,8 @@ class SchoolReviewPage extends React.Component {
         <TextField
           name='reviewText'
           hintText='Type review here...'
-          multiLine='true'
-          rows='10'
+          multiLine={true}
+          rows={10}
           style={{
             width: 600
           }}
@@ -44,7 +44,7 @@ class SchoolReviewPage extends React.Component {
         <RaisedButton
           type='submit'
           backgroundColor='#009CBA'
-          labelColor='white'
+          labelColor='#FFFFFF'
           label='Submit Review'/>
       </form>
     )

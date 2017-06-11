@@ -85,8 +85,10 @@ class Root extends React.Component {
     })
   }
 
-  addSchoolReview (key, review, school) {
+  addSchoolReview (review, school) {
     const schools = Object.assign({}, this.state.schools)
+    const key = Object.keys(this.state.schools).map(key => Object.assign({}, this.state.schools[key], { key })).find(item => item.name === school.name).key
+
     const immediatelyAvailRef = base.push(`schools/${key}/reviews`, {
       data: review,
       then(err) {
@@ -146,8 +148,6 @@ class Root extends React.Component {
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
               const school = schools.find(s => s.name === schoolName)
 
-              const schoolKey = Object.keys(this.state.schools).map(key => Object.assign({}, this.state.schools[key], { key })).find(item => item.name === schoolName).key
-
               if (school) {
                 return (
                   <SchoolPage school={school} />
@@ -164,12 +164,9 @@ class Root extends React.Component {
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
               const school = schools.find(s => s.name === schoolName)
 
-              const schoolKey = Object.keys(this.state.schools).map(key => Object.assign({}, this.state.schools[key], { key })).find(item => item.name === schoolName).key
-
               if (school) {
                 return (
                   <SchoolReviewPage school={school}
-                    schoolKey={schoolKey}
                     addSchoolReview={this.addSchoolReview}
                   />
                 )

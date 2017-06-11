@@ -11,9 +11,6 @@ import Divider from 'material-ui/Divider'
 class AdminSchoolPage extends React.Component {
   constructor () {
     super()
-    this.state = {
-      value: 'AL'
-    }
 
     this.handleChange = this.handleChange.bind(this)
   }
