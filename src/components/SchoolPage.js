@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import './SchoolPage.css'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Row, Col } from 'react-flexbox-grid/lib/index'
-import Divider from 'material-ui/Divider'
 
 class SchoolPage extends React.Component {
   render () {
