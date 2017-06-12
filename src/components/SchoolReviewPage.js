@@ -11,6 +11,7 @@ import Divider from 'material-ui/Divider'
 import Dialog from 'material-ui/Dialog'
 
 import { Rating } from 'material-ui-rating'
+import { addHyphen } from '../helpers'
 
 class SchoolReviewPage extends React.Component {
   state = {
@@ -38,7 +39,7 @@ class SchoolReviewPage extends React.Component {
     const { school } = this.props
 
     const actions = [
-      <Link to={`/${school.name}`}>
+      <Link to={`/${addHyphen(school.name)}`}>
       <FlatButton
         label='Done'
         primary={true}

@@ -10,3 +10,12 @@ export function generateKey () {
   return `s${Date.now()}_${randomText}`
 }
 
+export function addHyphen (str) {
+  str = str.replace(/\s+/g, '-')
+  return str
+}
+
+export function removeHyphen (str) {
+  str = str.replace(/-/g, ' ')
+  return str
+}

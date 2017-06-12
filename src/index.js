@@ -12,12 +12,12 @@ import SchoolPage from './components/SchoolPage'
 import AdminPage from './components/AdminPage'
 import AdminSchoolPage from './components/AdminSchoolPage'
 import SchoolReviewPage from './components/SchoolReviewPage'
-
 import NotFound from './components/NotFound'
 
 import base from './base'
 
 import { generateKey } from './helpers'
+import { removeHyphen } from './helpers'
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
   injectTapEventPlugin()
@@ -130,7 +130,7 @@ class Root extends React.Component {
                 />
             )} />
             <Route path='/admin/:school' render={props => {
-              const schoolName = props.match.params.school
+              const schoolName = removeHyphen(props.match.params.school)
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
               const school = schools.find(s => s.name === schoolName)
 
@@ -150,7 +150,7 @@ class Root extends React.Component {
               }
             }} />
             <Route exact path='/:school' render={props => {
-              const schoolName = props.match.params.school
+              const schoolName = removeHyphen(props.match.params.school)
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
               const school = schools.find(s => s.name === schoolName)
 
@@ -166,7 +166,7 @@ class Root extends React.Component {
             }} />
 
             <Route exact path='/:school/reviews' render={props => {
-              const schoolName = props.match.params.school
+              const schoolName = removeHyphen(props.match.params.school)
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
               const school = schools.find(s => s.name === schoolName)
 

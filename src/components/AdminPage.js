@@ -11,6 +11,7 @@ import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import { Row, Col } from 'react-flexbox-grid/lib/index'
 import Divider from 'material-ui/Divider'
 import ToggleDisplay from 'react-toggle-display'
+import { addHyphen } from '../helpers'
 
 class AdminPage extends React.Component {
   constructor () {
@@ -77,7 +78,7 @@ class AdminPage extends React.Component {
               return (
                 <ul key={key}>
                   <li>
-                    <Link to={`/admin/${school.name}`}>{school.name}</Link>
+                    <Link to={`/admin/${addHyphen(school.name)}`}>{school.name}</Link>
                     <IconButton tooltip='Edit'>
                       <EditorModeEdit
                         onClick={() => this.handleClick(key)} />

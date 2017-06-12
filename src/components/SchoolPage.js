@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { Row, Col } from 'react-flexbox-grid/lib/index'
 
 import { Rating } from 'material-ui-rating'
+import { addHyphen } from '../helpers'
 
 class SchoolPage extends React.Component {
   render () {
@@ -41,7 +42,7 @@ class SchoolPage extends React.Component {
               <li>{ratingArray.length} Reviews</li>
               : null }
             </ul>
-            <Link to={`/${school.name}/reviews`}>
+            <Link to={`/${addHyphen(school.name)}/reviews`}>
             <RaisedButton
               type='submit'
               backgroundColor='#009CBA'

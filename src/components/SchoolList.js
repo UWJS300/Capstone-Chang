@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import './SchoolList.css'
 import { Row, Col } from 'react-flexbox-grid/lib/index'
+import { addHyphen } from '../helpers'
 
 class SchoolList extends React.Component {
   render () {
@@ -17,7 +18,7 @@ class SchoolList extends React.Component {
             <ul className='school-list'>
               {Object.keys(schools).map(key => {
                 const school = schools[key]
-                return <li key={key}><Link to={`/${school.name}`}>{school.name}</Link></li>
+                return <li key={key}><Link to={`/${addHyphen(school.name)}`}>{school.name}</Link></li>
               })}
             </ul>
            </Col>
