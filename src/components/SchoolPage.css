@@ -1,0 +1,13 @@
+.review-text li {
+  line-height: 160%;
+  text-align: left;
+}
+
+li.author {
+  border-top: 1px solid #888;
+  text-align: right;
+}
+
+li.author::before {
+  content: 'Author: ';
+}
