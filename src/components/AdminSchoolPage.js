@@ -1,18 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import './AdminSchoolPage.css'
 import TextField from 'material-ui/TextField'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 import { Row, Col } from 'react-flexbox-grid/lib/index'
 import Divider from 'material-ui/Divider'
+import Dialog from 'material-ui/Dialog'
 
 class AdminSchoolPage extends React.Component {
   constructor () {
     super()
 
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  state = {
+    open: false,
+  }
+
+  handleOpen = () => {
+    this.setState({
+      open: true
+    })
+  }
+
+  handleClose = () => {
+    this.setState({
+      open: false
+    })
   }
 
   handleChange (e) {
@@ -29,6 +47,17 @@ class AdminSchoolPage extends React.Component {
 
   render () {
     const { school } = this.props
+
+    const actions = [
+      <Link to={`/admin`}>
+      <FlatButton
+        label='Done'
+        primary={true}
+        disabled={false}
+        onTouchTap={this.handleClose}
+      />
+      </Link>
+    ]
 
     return (
       <Row>
@@ -96,6 +125,20 @@ class AdminSchoolPage extends React.Component {
                     onChange={(e) => this.handleChange(e)} />
                 </li>
               </ul>
+              <RaisedButton
+                type='submit'
+                backgroundColor='#009CBA'
+                labelColor='#FFFFFF'
+                label='Save'
+                onTouchTap={this.handleOpen} />
+              <Dialog
+                title='Success'
+                actions={actions}
+                modal={true}
+                open={this.state.open}
+              >
+              Your update has been successfully submitted.
+              </Dialog>
             </Col>
           </Row>
         </Col>
