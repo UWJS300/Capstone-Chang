@@ -36,7 +36,7 @@ coverage
 .lock-wscript
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+build
 
 # Dependency directories
 node_modules
@@ -57,3 +57,8 @@ githubToken.js
 
 ## WebStrorm ##
 .idea/*
+
+## Firebase App ##
+.firebaserc
+database.rules.json
+firebase.json
