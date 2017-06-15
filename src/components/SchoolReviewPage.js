@@ -16,7 +16,9 @@ import { addHyphen } from '../helpers'
 class SchoolReviewPage extends React.Component {
   state = {
     open: false,
-    rating: 0
+    rating: 0,
+    canSubmit: false,
+    errorText: null
   }
 
   handleOpen = () => {
@@ -31,8 +33,15 @@ class SchoolReviewPage extends React.Component {
     })
   }
 
-  handleRating (value) {
+  handleRating = (value) => {
     this.setState({ rating: value })
+  }
+
+  checkReviewText = (e) => {
+    const reviewTextField = e.target.value
+    reviewTextField.length >= 100 ?
+      this.setState({ canSubmit: true }) :
+      this.setState({ canSubmit: false })
   }
 
   render () {
@@ -53,7 +62,7 @@ class SchoolReviewPage extends React.Component {
       <form onSubmit={(e) => {
         e.preventDefault()
         const key = this.props.schoolKey
-        const name = e.target.querySelector('[name=name').value
+        const name = e.target.querySelector('[name=name]').value
         const ratingValue = this.state.rating
         const reviewText = e.target.querySelector('[name=reviewText]').value
 
@@ -64,6 +73,7 @@ class SchoolReviewPage extends React.Component {
         <TextField
           type='text'
           name='name'
+          errorText={this.state.nameErrorText}
           hintText='Name'
           floatingLabelText='Name'
           required />
@@ -74,7 +84,8 @@ class SchoolReviewPage extends React.Component {
           required />
         <TextField
           name='reviewText'
-          hintText='Type review here...'
+          hintText='Your review must be at least 100 characters.'
+          onKeyUp={(e) => this.checkReviewText(e)}
           multiLine={true}
           rows={10}
           style={{
@@ -88,6 +99,7 @@ class SchoolReviewPage extends React.Component {
           backgroundColor='#009CBA'
           labelColor='#FFFFFF'
           label='Submit Review'
+          disabled={!this.state.canSubmit}
           onTouchTap={this.handleOpen} />
       </form>
     )
