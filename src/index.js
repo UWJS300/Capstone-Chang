@@ -183,7 +183,6 @@ class Root extends React.Component {
               }
 
             }} />
-
           </Switch>
         </App>
       </Router>
