@@ -5,7 +5,7 @@
     "no-console": ["error", {allow: ["warn", "error"]}],
     "strict": ["error", "global"],
     "curly": "warn",
-    "quotes": ["error", "double"],
+    "quotes": ["error", "single"],
     "space-before-function-paren": ["error", "always"],
     "space-blocks-blocks": "error",
     "arrow-spacing": "error",
