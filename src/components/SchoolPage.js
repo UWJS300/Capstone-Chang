@@ -42,7 +42,7 @@ class SchoolPage extends React.Component {
               <li>{ratingArray.length} Reviews</li>
               : null }
             </ul>
-            <Link to={`/${addHyphen(school.name)}/reviews`}>
+            <Link to={`/review/${addHyphen(school.name)}`}>
             <RaisedButton
               type='submit'
               backgroundColor='#009CBA'
