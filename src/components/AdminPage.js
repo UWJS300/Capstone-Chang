@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import base from '../base'
 import { Link } from 'react-router-dom'
 
 import './AdminPage.css'
@@ -17,8 +18,25 @@ class AdminPage extends React.Component {
   constructor () {
     super()
 
-    this.state = { show: false }
+    this.state = {
+      show: false,
+      uid: null,
+      owner: null
+    }
+
     this.handleChange = this.handleChange.bind(this)
+    this.authenticate = this.authenticate.bind(this)
+    this.renderPage = this.renderPage.bind(this)
+    this.renderLogin = this.renderLogin.bind(this)
+    this.logout = this.logout.bind(this)
+  }
+
+  componentDidMount () {
+    base.onAuth((user) => {
+      if(user) {
+        this.authHandler(null, { user })
+      }
+    })
   }
 
   handleClick () {
@@ -38,7 +56,48 @@ class AdminPage extends React.Component {
     this.props.updateSchool(key, updated)
   }
 
-  render () {
+  authenticate (provider) {
+    base.authWithOAuthPopup(provider, this.authHandler)
+  }
+
+  logout () {
+    base.unauth()
+    this.setState({ uid: null })
+  }
+
+  authHandler (err, authData) {
+    if (err) {
+      console.error(err)
+      return
+    }
+
+    const ref = base.database().ref()
+    ref.once('value', snapshot => {
+      const data = snapshot.val() || {}
+
+      if (!data.owner) {
+        ref.set({
+          owner: authData.user.uid
+        })
+      }
+
+      this.setState({
+        uid: authData.user.uid,
+        owner: data.owner || authData.user.uid
+      })
+    })
+  }
+
+  renderLogin () {
+    return (
+      <div>
+        <h2>Login</h2>
+        <button onClick={() => this.authenticate('github')}>Login with Github</button>
+      </div>
+    )
+  }
+
+  renderPage () {
     const { schools } = this.props
 
     const AddSchoolForm = (
@@ -70,6 +129,7 @@ class AdminPage extends React.Component {
         <Col xs={12}>
           <Row center='xs'>
             <Col md={10}>
+            <button onClick={this.logout}>Log out</button>
             {AddSchoolForm}
             <br />
             <Divider />
@@ -106,6 +166,28 @@ class AdminPage extends React.Component {
         </Col>
       </Row>
     )
+  }
+
+  render () {
+    if (!this.state.uid) {
+      return (
+        <div>
+          {this.renderLogin()}
+        </div>
+      )
+    } else if (this.state.uid !== this.state.owner) {
+      return (
+        <div>
+          <h2>Unauthorized</h2>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          {this.renderPage()}
+        </div>
+      )
+    }
   }
 }
 

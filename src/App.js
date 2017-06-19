@@ -162,7 +162,7 @@ class App extends Component {
               }
             }} />
 
-            <Route exact path='/:school/reviews' render={props => {
+            <Route exact path='/review/:school' render={props => {
               const schoolName = removeHyphen(props.match.params.school)
               const schools = Object.keys(this.state.schools).map(key => this.state.schools[key])
               const school = schools.find(s => s.name === schoolName)
