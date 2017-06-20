@@ -15,9 +15,7 @@ const Header = (props) => {
     <header>
       <MuiThemeProvider>
         <h1>
-          <Link to={`/admin`}>
-            <SocialSchool style={iconStyles} color={white} />
-          </Link>
+          <SocialSchool style={iconStyles} color={white} />
           <Link to={`/`}>Exam School Review</Link>
         </h1>
       </MuiThemeProvider>
