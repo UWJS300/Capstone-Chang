@@ -56,16 +56,16 @@ class AdminPage extends React.Component {
     this.props.updateSchool(key, updated)
   }
 
-  authenticate (provider) {
+  authenticate = (provider) => {
     base.authWithOAuthPopup(provider, this.authHandler)
   }
 
-  logout () {
+  logout = () => {
     base.unauth()
     this.setState({ uid: null })
   }
 
-  authHandler (err, authData) {
+  authHandler = (err, authData) => {
     if (err) {
       console.error(err)
       return
